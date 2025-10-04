@@ -35,7 +35,7 @@ export const Hero = () => {
                 fontFamily: "'Poppins', 'Montserrat', sans-serif",
               }}
             >
-              Madhu Karthick A.
+              Madhu Karthick .A
             </span>
           </motion.h1>
 
