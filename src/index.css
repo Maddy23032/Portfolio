@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Deep Space Nebula Theme */
+    --background: 240 45% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 240 35% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 240 35% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Golden Amber Primary */
+    --primary: 45 95% 58%;
+    --primary-foreground: 240 45% 4%;
+
+    /* Electric Blue Secondary */
+    --secondary: 210 100% 60%;
+    --secondary-foreground: 240 45% 4%;
+
+    --muted: 240 30% 15%;
+    --muted-foreground: 220 20% 70%;
+
+    /* Deep Purple Accent */
+    --accent: 270 80% 65%;
+    --accent-foreground: 240 45% 4%;
+
+    /* Emerald Green Tertiary */
+    --tertiary: 155 85% 55%;
+    --tertiary-foreground: 240 45% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 30% 18%;
+    --input: 240 35% 12%;
+    --ring: 45 95% 58%;
+
+    --radius: 0.75rem;
+
+    /* Cosmic Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(45 95% 58%), hsl(210 100% 60%));
+    --gradient-nebula: linear-gradient(135deg, hsl(210 100% 60%), hsl(270 80% 65%));
+    --gradient-cosmic: linear-gradient(180deg, hsl(240 45% 4%), hsl(240 35% 8%), hsl(270 80% 20%));
+    --gradient-stellar: linear-gradient(135deg, hsl(155 85% 55%), hsl(45 95% 58%), hsl(270 80% 65%));
+    
+    /* Intense Neon Glow Effects */
+    --glow-teal: 0 0 40px hsl(45 95% 58% / 0.6), 0 0 80px hsl(45 95% 58% / 0.3);
+    --glow-purple: 0 0 40px hsl(270 80% 65% / 0.6), 0 0 80px hsl(270 80% 65% / 0.3);
+    --glow-fuchsia: 0 0 40px hsl(210 100% 60% / 0.6), 0 0 80px hsl(210 100% 60% / 0.3);
+    --glow-blue: 0 0 40px hsl(210 100% 60% / 0.6), 0 0 80px hsl(210 100% 60% / 0.3);
+
+    /* Sidebar (not used but kept for compatibility) */
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 45 95% 58%;
+    --sidebar-primary-foreground: 222 84% 5%;
+    --sidebar-accent: 222 47% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 47% 15%;
+    --sidebar-ring: 45 95% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+
+  .text-stellar {
+    background: var(--gradient-stellar);
+    @apply bg-clip-text text-transparent;
+  }
+
+  .glow-teal {
+    text-shadow: var(--glow-teal);
+  }
+
+  .glow-purple {
+    text-shadow: var(--glow-purple);
+  }
+
+  .glow-fuchsia {
+    text-shadow: var(--glow-fuchsia);
+  }
+
+  .glow-blue {
+    text-shadow: var(--glow-blue);
+  }
+
+  .card-glow {
+    box-shadow: 0 0 30px hsl(180 85% 55% / 0.2), 0 0 60px hsl(280 70% 65% / 0.1);
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 50px hsl(180 85% 55% / 0.4), 0 0 100px hsl(280 70% 65% / 0.2), 0 0 150px hsl(320 85% 60% / 0.1);
+    transform: translateY(-8px) scale(1.02);
+  }
+
+  .neon-border {
+    border: 2px solid hsl(var(--primary));
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5), inset 0 0 20px hsl(var(--primary) / 0.2);
+  }
+
+  .neon-border:hover {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.3);
+  }
+
+  /* Animated Border Effects */
+  .animated-border {
+    position: relative;
+    background: hsl(var(--primary));
+    animation: colorShift 3s ease-in-out infinite;
+  }
+
+  .animated-border-pulse {
+    position: relative;
+    background: hsl(var(--primary));
+    animation: borderPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes colorShift {
+    0%, 100% {
+      background-color: hsl(var(--primary));
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.3);
+    }
+    33% {
+      background-color: hsl(var(--secondary));
+      box-shadow: 0 0 30px hsl(var(--secondary) / 0.6), 0 0 60px hsl(var(--secondary) / 0.3);
+    }
+    66% {
+      background-color: hsl(var(--accent));
+      box-shadow: 0 0 30px hsl(var(--accent) / 0.6), 0 0 60px hsl(var(--accent) / 0.3);
+    }
+  }
+
+  @keyframes borderPulse {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 40px hsl(var(--primary) / 0.3), inset 0 0 20px hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--accent) / 0.8), 0 0 80px hsl(var(--accent) / 0.5), inset 0 0 40px hsl(var(--accent) / 0.3);
+    }
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--primary));
+  }
+
+  .shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Rotating Border Effect */
+  .rotating-border {
+    position: relative;
+    background: hsl(var(--card));
+  }
+
+  .rotating-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: conic-gradient(
+      from 0deg,
+      hsl(var(--primary)),
+      hsl(var(--secondary)),
+      hsl(var(--accent)),
+      hsl(var(--primary))
+    );
+    border-radius: inherit;
+    animation: rotate 3s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Twinkle animation for stardust particles */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+
+  /* Pulse animation */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* Hero Name Text Animations */
+  
+  /* Animated Gradient Text - Main Effect */
+  .animated-gradient-text {
+    background: linear-gradient(
+      90deg,
+      hsl(180 85% 55%),
+      hsl(270 80% 65%),
+      hsl(320 85% 60%),
+      hsl(45 95% 58%),
+      hsl(180 85% 55%)
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Shimmer/Glint Effect - Alternative Option */
+  .shimmer-text {
+    position: relative;
+    background: linear-gradient(
+      90deg,
+      hsl(210 40% 98%),
+      hsl(180 85% 55%)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .shimmer-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+    animation: glintSweep 4s ease-in-out infinite;
+  }
+
+  @keyframes glintSweep {
+    0% {
+      left: -150%;
+    }
+    50%, 100% {
+      left: 150%;
+    }
+  }
+
+  /* Soft Pulse Glow Effect - Alternative Option */
+  .pulse-glow-text {
+    color: hsl(210 40% 98%);
+    animation: softPulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes softPulseGlow {
+    0%, 100% {
+      text-shadow: 
+        0 0 20px hsl(180 85% 55% / 0.3),
+        0 0 40px hsl(270 80% 65% / 0.2),
+        0 0 60px hsl(180 85% 55% / 0.1);
+    }
+    50% {
+      text-shadow: 
+        0 0 30px hsl(180 85% 55% / 0.6),
+        0 0 60px hsl(270 80% 65% / 0.4),
+        0 0 90px hsl(180 85% 55% / 0.3),
+        0 0 120px hsl(270 80% 65% / 0.2);
+    }
+  }
+}
+
+
