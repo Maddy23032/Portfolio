@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 export const Contact = () => {
   const [ref, inView] = useInView({
@@ -19,10 +20,46 @@ export const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! (Demo mode)");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      // EmailJS configuration
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
+
+      // Check if EmailJS is configured
+      if (serviceId === "YOUR_SERVICE_ID" || templateId === "YOUR_TEMPLATE_ID" || publicKey === "YOUR_PUBLIC_KEY") {
+        toast.error("EmailJS not configured yet. Please add your credentials to .env file.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Madhu Karthick", // Your name
+        },
+        publicKey
+      );
+
+      toast.success("Message sent successfully! I'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error("Failed to send message. Please try again or email me directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -102,11 +139,12 @@ export const Contact = () => {
                 <Button 
                   type="submit"
                   size="lg"
-                  className="group w-full animated-border-pulse text-background font-bold text-lg relative overflow-hidden"
+                  disabled={isSubmitting}
+                  className="group w-full animated-border-pulse text-background font-bold text-lg relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    <Send className="w-5 h-5 group-hover:animate-pulse-glow" />
-                    Send Message
+                    <Send className={`w-5 h-5 ${isSubmitting ? 'animate-pulse' : 'group-hover:animate-pulse-glow'}`} />
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </span>
                   <div className="shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
