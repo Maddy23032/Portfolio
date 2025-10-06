@@ -125,7 +125,7 @@ export const Certifications = () => {
           {/* Certifications Timeline Container */}
           <div className="relative max-w-5xl mx-auto py-12">
             {/* Central Starlight Path */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2">
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 md:block hidden">
               {/* Background static path */}
               <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-secondary/20 to-accent/20 blur-sm" />
               
@@ -175,7 +175,7 @@ export const Certifications = () => {
             </div>
 
             {/* Certification Nodes */}
-            <div className="relative space-y-64">
+            <div className="relative flex flex-col space-y-12 md:space-y-64">
               {insignias.map((insignia, index) => {
                 const isHovered = hoveredInsignia === insignia.id;
                 const isNPTEL = insignia.id === "nptel";
@@ -184,14 +184,14 @@ export const Certifications = () => {
                 return (
                   <motion.div
                     key={insignia.id}
-                    className="relative min-h-[200px]"
+                    className="relative min-h-[200px] flex flex-col md:block items-center"
                     initial={{ opacity: 0 }}
                     animate={inView ? { opacity: 1 } : {}}
                     transition={{ delay: 0.8 + index * 0.3, duration: 0.8 }}
                   >
-                    {/* Node on central path */}
+                    {/* Node on central path - Hidden on mobile, shown on desktop */}
                     <motion.div
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+                      className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
                       initial={{ scale: 0 }}
                       animate={inView ? { scale: 1 } : {}}
                       transition={{ 
@@ -268,9 +268,9 @@ export const Certifications = () => {
                       )}
                     </motion.div>
 
-                    {/* Connecting line to insignia */}
+                    {/* Connecting line to insignia - Hidden on mobile */}
                     <motion.div
-                      className="absolute top-1/2 -translate-y-1/2 h-0.5"
+                      className="hidden md:block absolute top-1/2 -translate-y-1/2 h-0.5"
                       style={{
                         left: isLeft ? 'calc(50% - 150px)' : '50%',
                         right: isLeft ? '50%' : 'calc(50% - 150px)',
@@ -308,10 +308,10 @@ export const Certifications = () => {
                       )}
                     </motion.div>
 
-                    {/* Insignia */}
+                    {/* Insignia - Centered on mobile, alternating on desktop */}
                     <motion.div
-                      className={`absolute top-1/2 -translate-y-1/2 cursor-pointer ${
-                        isLeft ? 'right-1/2 mr-[170px]' : 'left-1/2 ml-[170px]'
+                      className={`relative md:absolute top-0 md:top-1/2 md:-translate-y-1/2 cursor-pointer ${
+                        isLeft ? 'md:right-1/2 md:mr-[170px]' : 'md:left-1/2 md:ml-[170px]'
                       }`}
                       initial={{ opacity: 0, x: isLeft ? -50 : 50, scale: 0.8 }}
                       animate={inView ? { opacity: 1, x: 0, scale: 1 } : {}}

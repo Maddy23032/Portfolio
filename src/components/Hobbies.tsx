@@ -151,35 +151,35 @@ export const Hobbies = () => {
             Activities and passions that inspire my creativity
           </motion.p>
 
-          {/* Card Deck Container */}
-          <div className="relative max-w-5xl mx-auto min-h-[600px] flex items-center justify-center px-20">
-            {/* Navigation Buttons */}
+          {/* Card Deck Container - Responsive width and padding */}
+          <div className="relative max-w-5xl mx-auto min-h-[600px] flex items-center justify-center px-4 md:px-20">
+            {/* Navigation Buttons - Adjusted for mobile */}
             <motion.button
               onClick={handlePrevious}
-              className="absolute left-0 z-30 w-14 h-14 rounded-full bg-card/80 backdrop-blur-md border-2 border-primary/50 flex items-center justify-center hover:border-primary hover:scale-110 transition-all group"
+              className="absolute left-2 md:left-0 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full bg-card/80 backdrop-blur-md border-2 border-primary/50 flex items-center justify-center hover:border-primary hover:scale-110 transition-all group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.8 }}
             >
-              <ChevronLeft className="w-8 h-8 text-primary group-hover:text-primary/100" />
+              <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-primary group-hover:text-primary/100" />
             </motion.button>
 
             <motion.button
               onClick={handleNext}
-              className="absolute right-0 z-30 w-14 h-14 rounded-full bg-card/80 backdrop-blur-md border-2 border-primary/50 flex items-center justify-center hover:border-primary hover:scale-110 transition-all group"
+              className="absolute right-2 md:right-0 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full bg-card/80 backdrop-blur-md border-2 border-primary/50 flex items-center justify-center hover:border-primary hover:scale-110 transition-all group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, x: 50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.8 }}
             >
-              <ChevronRight className="w-8 h-8 text-primary group-hover:text-primary/100" />
+              <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-primary group-hover:text-primary/100" />
             </motion.button>
 
-            {/* Card Stack */}
-            <div className="relative w-full max-w-2xl" style={{ height: '500px', flexShrink: 0 }}>
+            {/* Card Stack - Narrower on mobile */}
+            <div className="relative w-11/12 md:w-full md:max-w-2xl" style={{ height: '500px', flexShrink: 0 }}>
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={currentIndex}

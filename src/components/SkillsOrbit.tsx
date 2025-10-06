@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { Html, PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -478,7 +478,7 @@ function OrbitalRings() {
 }
 
 // Main 3D Scene Component
-function SkillsScene() {
+function SkillsScene({ isMobile }: { isMobile: boolean }) {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const groupRef = useRef<THREE.Group>(null);
 
@@ -491,8 +491,14 @@ function SkillsScene() {
 
   return (
     <>
-      {/* Camera */}
-      <PerspectiveCamera makeDefault position={[0, 10, 28]} fov={45} near={0.1} far={1000} />
+      {/* Camera - Adjusted for mobile */}
+      <PerspectiveCamera 
+        makeDefault 
+        position={isMobile ? [0, 12, 35] : [0, 10, 28]} 
+        fov={isMobile ? 50 : 45} 
+        near={0.1} 
+        far={1000} 
+      />
       
       {/* Controls */}
       <OrbitControls 
@@ -578,6 +584,19 @@ export const SkillsOrbit = () => {
     threshold: 0.1,
   });
 
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    
+    const handleResize = () => checkMobile();
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="skills" className="py-32 relative min-h-screen overflow-hidden">
       <div className="container mx-auto px-4">
@@ -606,9 +625,9 @@ export const SkillsOrbit = () => {
             My technology stack and areas of expertise
           </motion.p>
 
-          {/* 3D Canvas */}
+          {/* 3D Canvas - Adjusted height for mobile */}
           <motion.div
-            className="w-full h-[1100px] rounded-2xl"
+            className={`w-full rounded-2xl ${isMobile ? 'h-[700px]' : 'h-[1100px]'}`}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.6, duration: 1 }}
@@ -622,7 +641,7 @@ export const SkillsOrbit = () => {
               }}
               style={{ background: 'transparent' }}
             >
-              <SkillsScene />
+              <SkillsScene isMobile={isMobile} />
             </Canvas>
           </motion.div>
 
