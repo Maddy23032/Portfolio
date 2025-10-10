@@ -49,7 +49,7 @@ export const Navigation = () => {
 
   const handleDownload = () => {
     // Open Google Drive resume link in new tab
-    window.open("https://drive.google.com/file/d/1ojl0mo8ustPQq3VTUcFivdioCuQsw0I5/view?usp=sharing", "_blank");
+    window.open("https://drive.google.com/file/d/1TH2fplgPtgzyhj7L3NhCMlWVw_CoWyha/view?usp=sharing", "_blank");
   };
 
   return (
